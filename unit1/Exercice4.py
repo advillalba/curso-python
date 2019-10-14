@@ -1,5 +1,3 @@
-import math
-
 """
 Created on 13 oct. 2019
 
