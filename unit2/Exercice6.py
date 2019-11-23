@@ -11,10 +11,14 @@ La siguiente listade números:volumenes =[12, 34, 10, 23, 25, 27, 12]representae
  Domingo   ***********
 """
 
-
-RAIN =[12, 34, 10, 23, 25, 27, 12]
+rain = [12, 34, 10, 23, 25, 27, 12]
 SYMBOL = '*'
 DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
-for i in range (0, 6):
-    print(DAYS[i].rjust(8, ' '), ''.rjust(RAIN[i], SYMBOL))
+
+def generate_histogram(volumes):
+    for i in range(0, 7):
+        print(DAYS[i].rjust(9, ' '), ''.rjust(volumes[i], SYMBOL))
+
+
+generate_histogram(rain)

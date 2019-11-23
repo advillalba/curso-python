@@ -5,20 +5,20 @@ Escribe un programa que pregunte al usuario su nombre y sexo, y muestre por pant
 Aplica los principios de la programación estructurada.
 """
 
-FEMALE_NAME_GROUP_A = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L']
-MALE_NAME_GROUP_A = ['O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-
 
 def request_user_information():
     return input('Por favor, introduzca su nombre y su sexo separados por coma: ').replace(' ', '').split(',')
 
 
+def is_first_group(gender, first_name_letter):
+    print(gender, first_name_letter)
+    return (gender == 'HOMBRE' and first_name_letter > 'N') or (gender == 'MUJER' and first_name_letter < 'M')
+
+
 def assign_group(user_information):
     first_letter = user_information[0][:1].upper()
-    print(first_letter)
-    print(user_information[1].upper())
-    if user_information[1].upper() == 'HOMBRE' and first_letter in MALE_NAME_GROUP_A or \
-            (user_information[1].upper() == 'MUJER' and first_letter in FEMALE_NAME_GROUP_A):
+    gender = user_information[1].upper()
+    if is_first_group(gender, first_letter):
         print('Pertenece al grupo A')
     else:
         print('Pertenece al grupo B')

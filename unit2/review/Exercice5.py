@@ -25,7 +25,6 @@ houseRating = None
 houseIsResidential = None
 exitProgram = False
 
-
 def display_menu():
     print('\nMENÚ')
     print('-------------------------------')
@@ -108,14 +107,8 @@ def display_rooms_average_size():
     print('Las habitaciones tienen un tamanio medio de: ', houseRoomsSizeAverage, ' metros cuadrados.')
 
 
-def end_program():
-    global exitProgram
-    exitProgram = True
-
-
-while not exitProgram:
-    action = display_menu()
-
+def process(action):
+    exit_program = False
     if action == PROGRAM_OPTIONS['REQUEST_INFORMATION']:
         request_house_information()
 
@@ -127,7 +120,14 @@ while not exitProgram:
         display_rooms_average_size()
 
     elif action == PROGRAM_OPTIONS['END']:
-        end_program()
-        
+        exit_program = True
+
     else:
         print('La opcion elegida no es valida.')
+
+    return exit_program
+
+
+while not exitProgram:
+    action = display_menu()
+    exitProgram = process(action)
