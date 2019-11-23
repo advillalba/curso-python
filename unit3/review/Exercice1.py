@@ -5,31 +5,37 @@ FORMATO_NOMBRE = '^([a-zA-Z0-9]{1,8})$'
 FORMATO_PRECIO = '^((?!.*\\.{2,}.*)[0-9\\.?]{8})$'
 
 
-def is_not_valid_code(cadena: int):
+def is_not_valid_code(cadena: int) -> bool:
+    """ Valida que el codigo del producto tenga un formato correcto """
     return not re.match(FORMATO_CODIGO, str(cadena))
 
 
-def is_not_valid_name(cadena: str):
+def is_not_valid_name(cadena: str) -> bool:
+    """ Valida que el nombre del producto tenga un formato correcto """
     return not re.match(FORMATO_NOMBRE, cadena)
 
 
-def is_not_valid_price(cadena: float):
+def is_not_valid_price(cadena: float) -> bool:
+    """ Valida que el precio del producto tenga un formato correcto """
     return not re.match(FORMATO_PRECIO, str(cadena))
 
 
-def __split_products__(cadena: str):
+def __split_products__(cadena: str) -> []:
+    """ Separa los productos almacenados en la cadena """
     n = 20
     products = [cadena[i:i + n] for i in range(0, len(cadena), n)]
     return products
 
 
 def __sort_products__(cadena: str) -> str:
+    """ Ordena los productos usando el valor del codigo """
     products = __split_products__(cadena)
     products.sort(key=lambda x: x[:4], reverse=False)
     return ''.join(products)
 
 
 def __retrieve_product__(cadena, codigo: int) -> str:
+    """ Recupera el producto indicado """
     _products = __split_products__(cadena)
     _product = None
     i = 0
@@ -42,7 +48,12 @@ def __retrieve_product__(cadena, codigo: int) -> str:
 
 
 def agregar_articulo(cadena: str, tupla) -> str:
-    """ Añade un articulo a la cadena y retorna la nueva cadena. """
+    """ Añade un articulo a la cadena y retorna la nueva cadena.
+    :raises Exception: Codigo introducido con formato incorrecto.
+    :raises Exception: El nombre introducido no es valido.
+    :raises Exception: Precio con formato incorrecto.
+    :raises Exception: El producto ya existe.
+    """
     if is_not_valid_code(tupla[0]):
         raise Exception('Codigo introducido con formato incorrecto')
 
@@ -62,9 +73,10 @@ def agregar_articulo(cadena: str, tupla) -> str:
     return cadena
 
 
-
 def buscar_articulo(cadena: str, codigo: int) -> str:
-    """ Busca un artículo en la cadena y retorna una tupla con sus datos. """
+    """ Busca un artículo en la cadena y retorna una tupla con sus datos.
+    :raises Exception: Producto no encontrado
+    """
     _product = __retrieve_product__(cadena, codigo)
 
     if _product is None:

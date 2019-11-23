@@ -8,7 +8,10 @@ DESCRIPTION_FORMAT = '(\\w{1,100})'
 ventas_list = []
 
 
-def __validator__(arg: str, pattern: str):
+def __validate__(arg: str, pattern: str) -> bool:
+    """ Valida el parametro introducido usando la expresion dada, si no es valido se lanza una excepcion
+    :raises Exception:  Parametro con formato incorrecto
+    """
     if not re.match(pattern, arg):
         print('Parametro [', arg, '] con formato incorrecto')
         raise Exception('Parametro [', arg, '] con formato incorrecto')
@@ -16,21 +19,24 @@ def __validator__(arg: str, pattern: str):
 
 
 def __request_sale__() -> (struct_time, float, str):
-    date = __validator__(input('Introduzca la fecha con formato dd-mm-yyyy hh:mi: '), DATE_TIME_FORMAT)
-    price = __validator__(input('Intoduzca el precio: '), PRICE_FORMAT)
-    description = __validator__(input('Introduzca lal descripcion: '), DESCRIPTION_FORMAT)
+    """ Solicita por pantalla un producto """
+    date = __validate__(input('Introduzca la fecha con formato dd-mm-yyyy hh:mi: '), DATE_TIME_FORMAT)
+    price = __validate__(input('Intoduzca el precio: '), PRICE_FORMAT)
+    description = __validate__(input('Introduzca lal descripcion: '), DESCRIPTION_FORMAT)
     return datetime.strptime(date, '%d-%m-%Y %H:%M').timetuple(), float(price), description
 
 
 def request_sales() -> [(struct_time, float, str)]:
+    """ Solicita por pantalla 10 productos """
     sales = []
-    for i in range(0, 1):
+    for i in range(0, 10):
         sales.append(__request_sale__())
 
     return sales
 
 
 def venta_str(venta_tupla: [(struct_time, float, str)]):
+    """ Muestra por pantalla los productos introducidos """
     for i in range(0, len(venta_tupla)):
         sale = venta_tupla[i]
         date = struct_time(sale[0])
