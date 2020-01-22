@@ -10,7 +10,7 @@ MAX_ITERATION = 900
 
 
 def new_random_cities() -> list:
-    return random.sample(list(DISTANCES_A), 3)
+    return sorted(random.sample(list(DISTANCES_A), 3))
 
 
 def get_cities_distance(cities: list) -> int:
@@ -22,6 +22,7 @@ def closest_distance(cities: list, random_cities: list, iteration: int) -> bool:
 
 
 def close_trip(cities: list, iteration: int) -> list:
+    logger.info('La iteracion es: %s', iteration)
     random_cities = new_random_cities()
     if closest_distance(cities, random_cities, iteration):
         return cities

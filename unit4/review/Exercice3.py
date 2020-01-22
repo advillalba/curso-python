@@ -17,4 +17,4 @@ def valor_medio(*numbers: int) -> int:
 
 
 min = valor_medio(5, 3, 4, 2, 1, 10)
-print(mind)
+print(min)
